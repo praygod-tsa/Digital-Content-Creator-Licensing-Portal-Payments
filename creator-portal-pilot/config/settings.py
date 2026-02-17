@@ -56,10 +56,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASE_URL = os.getenv('DATABASE_URL', '').strip()
+DATABASE_URL = os.getenv('DATABASE_URL', '').strip().strip('"').strip("'")
 
-if DATABASE_URL:
-    default_db = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+# Render may inject empty/quoted values during setup; treat invalid URL values as missing.
+if DATABASE_URL and '://' in DATABASE_URL:
+    try:
+        default_db = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    except ValueError:
+        default_db = {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
 else:
     default_db = {
         'ENGINE': 'django.db.backends.sqlite3',
