@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Maelezo ya Fund Application{% endblock %}
+{% block content %}
+<h1>Maelezo ya Ombi la Empowerment Fund</h1>
+<p class="muted">
+    Huu ni muhtasari wa hatua za ombi la Mfuko wa Uwezeshaji ndani ya mfumo wa Wizara.
+    Tumia ukurasa huu kufuatilia hatua ya submission na review ya ombi.
+</p>
+
+<div class="card">
+    <h3>Status Timeline</h3>
+    <p>
+        <strong>Draft</strong> →
+        <strong {% if fund_application.status == 'SUBMITTED' %}style="color:#1b5e20;"{% endif %}>Submitted</strong> →
+        <strong {% if fund_application.review_status == 'APPROVED' %}style="color:#1b5e20;"{% elif fund_application.review_status == 'REJECTED' %}style="color:#b91c1c;"{% endif %}>
+            Review ({{ fund_application.review_status }})
+        </strong>
+    </p>
+</div>
+
+<div class="card" style="margin-top:12px;">
+    <p><strong>Muombaji:</strong> {{ fund_application.applicant.full_name }}</p>
+    <p><strong>Program:</strong> {{ fund_application.get_fund_program_display }}</p>
+    <p><strong>Kiasi:</strong> {{ fund_application.requested_amount_tzs }} TZS</p>
+    <p><strong>Status:</strong> {{ fund_application.status }}</p>
+    <p><strong>Review Status:</strong> {{ fund_application.review_status }}</p>
+    <p><strong>Kijana wakati wa kuomba:</strong> {% if fund_application.is_youth_at_application %}Ndiyo{% else %}Hapana{% endif %}</p>
+</div>
+
+<p style="margin-top:12px;"><a class="btn" href="{% url 'fund_apply' %}">Weka Ombi Jipya</a></p>
+<p><a href="{% url 'fund_application_list' %}">Angalia Orodha ya Fund Applications</a></p>
+<p><a href="{% url 'dashboard' %}">Rudi Dashboard</a></p>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Orodha ya Fund Applications{% endblock %}
+{% block content %}
+<h1>Orodha ya Empowerment Fund Applications</h1>
+<p class="muted">
+    Hii ni orodha ya ndani ya Wizara ya maombi ya Mfuko wa Uwezeshaji. Inasaidia kuona programu,
+    kiasi kilichoombwa, pamoja na hali ya review na alama ya kijana.
+</p>
+<p><a class="btn" href="{% url 'fund_apply' %}">+ Omba Fund Mpya</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Muombaji</th>
+            <th>NIN</th>
+            <th>Program</th>
+            <th>Kiasi (TZS)</th>
+            <th>Status</th>
+            <th>Review Status</th>
+            <th>Kijana</th>
+            <th>Tarehe</th>
+            <th>Hatua</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fund in fund_applications %}
+        <tr>
+            <td>{{ fund.applicant.full_name }}</td>
+            <td>{{ fund.applicant.national_id_number }}</td>
+            <td>{{ fund.get_fund_program_display }}</td>
+            <td>{{ fund.requested_amount_tzs }}</td>
+            <td>{{ fund.status }}</td>
+            <td>{{ fund.review_status }}</td>
+            <td>{% if fund.is_youth_at_application %}Ndiyo{% else %}Hapana{% endif %}</td>
+            <td>{{ fund.created_at }}</td>
+            <td>
+                <a href="{% url 'fund_success' fund.id %}">Detail</a> |
+                <a href="{% url 'fund_application_review' fund.id %}">Review</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9">Hakuna fund applications bado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

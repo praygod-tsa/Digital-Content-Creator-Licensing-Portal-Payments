@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Cheti cha Leseni{% endblock %}
+{% block content %}
+<h1>Cheti cha Leseni (Pilot)</h1>
+<p class="muted">Huu ni mwonekano wa awali wa cheti cha leseni ndani ya mfumo wa Wizara. Baadaye unaweza kuongezewa PDF na QR.</p>
+
+<div class="card">
+    <h3>Ministry of Information, Culture, Arts and Sports</h3>
+    <p><strong>Namba ya Leseni:</strong> {{ licence.licence_number }}</p>
+    <p><strong>Hali ya Leseni:</strong> {{ licence.status }}</p>
+    <p><strong>Mmiliki:</strong> {{ licence.application.applicant.full_name }}</p>
+    <p><strong>NIN:</strong> {{ licence.application.applicant.national_id_number }}</p>
+    <p><strong>Simu:</strong> {{ licence.application.applicant.phone }}</p>
+    <p><strong>Kategoria ya Leseni:</strong> {{ licence.application.get_licence_category_display }}</p>
+    <p><strong>Valid From:</strong> {{ licence.valid_from }}</p>
+    <p><strong>Valid To:</strong> {{ licence.valid_to }}</p>
+</div>
+
+<p style="margin-top: 12px;"><a href="{% url 'application_success' licence.application.id %}">Rudi kwenye maelezo ya ombi</a></p>
+{% endblock %}

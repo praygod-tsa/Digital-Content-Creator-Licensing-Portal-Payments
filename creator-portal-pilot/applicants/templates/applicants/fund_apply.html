@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Omba Empowerment Fund{% endblock %}
+{% block content %}
+<h1>Empowerment Fund Application</h1>
+<p class="muted">Workflow hii ni ya Wizara (pilot) kwa ajili ya maombi ya mfuko wa uwezeshaji.</p>
+
+<p><strong>Muombaji:</strong> {{ applicant.full_name }}</p>
+<p><strong>NIN:</strong> {{ applicant.national_id_number }}</p>
+<p><strong>Simu:</strong> {{ applicant.phone }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Wasilisha Ombi la Fund</button>
+</form>
+{% endblock %}

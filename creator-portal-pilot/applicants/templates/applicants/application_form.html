@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Omba Leseni{% endblock %}
+{% block content %}
+<h1>Omba Leseni</h1>
+<p><strong>Muombaji:</strong> {{ applicant.full_name }}</p>
+<p><strong>NIN:</strong> {{ applicant.national_id_number }}</p>
+<p><strong>Namba ya Simu:</strong> {{ applicant.phone }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Wasilisha Ombi la Leseni</button>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Review ya Ombi{% endblock %}
+{% block content %}
+<h1>Review ya Ombi la Leseni (Internal Ministry/TCRA)</h1>
+
+<p><strong>Jina:</strong> {{ application.applicant.full_name }}</p>
+<p><strong>NIN:</strong> {{ application.applicant.national_id_number }}</p>
+<p><strong>Simu:</strong> {{ application.applicant.phone }}</p>
+<p><strong>Kategoria ya Leseni:</strong> {{ application.get_licence_category_display }}</p>
+<p><strong>Amateur:</strong> {% if application.is_amateur %}Ndiyo{% else %}Hapana{% endif %}</p>
+<p><strong>Channel links/handles:</strong></p>
+<pre>{{ application.channel_links|default:"-" }}</pre>
+<p><strong>Payment status:</strong> {{ application.payment_status }}</p>
+
+<hr />
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Hifadhi Review</button>
+</form>
+
+<p><a href="/applications/">Rudi kwenye Orodha ya Maombi</a></p>
+{% endblock %}

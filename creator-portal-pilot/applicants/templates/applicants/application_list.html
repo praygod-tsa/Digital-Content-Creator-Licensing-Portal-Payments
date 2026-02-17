@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Orodha ya Maombi ya Leseni{% endblock %}
+{% block content %}
+<h1>Orodha ya Maombi ya Leseni</h1>
+<p class="muted">
+    Hii ni orodha ya ndani ya Wizara/TCRA ya kufuatilia hatua za maombi ya leseni: submission,
+    ankara na malipo, kisha maamuzi ya mapitio.
+</p>
+<p><a class="btn" href="{% url 'apply_licence' %}">+ Omba leseni mpya</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Jina la Muombaji</th>
+            <th>NIN</th>
+            <th>Simu</th>
+            <th>Kategoria</th>
+            <th>Amateur?</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Review</th>
+            <th>Hatua</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for app in applications %}
+        <tr>
+            <td>{{ app.applicant.full_name }}</td>
+            <td>{{ app.applicant.national_id_number }}</td>
+            <td>{{ app.applicant.phone }}</td>
+            <td>{{ app.get_licence_category_display }}</td>
+            <td>{% if app.is_amateur %}Ndiyo{% else %}Hapana{% endif %}</td>
+            <td>{{ app.status }}</td>
+            <td>{{ app.payment_status }}</td>
+            <td>{{ app.review_status }}</td>
+            <td>
+                <a href="{% url 'application_success' app.id %}">Detail</a> |
+                <a href="{% url 'application_invoice' app.id %}">Ankara</a> |
+                <a href="{% url 'application_review' app.id %}">Review</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9">Hakuna maombi bado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

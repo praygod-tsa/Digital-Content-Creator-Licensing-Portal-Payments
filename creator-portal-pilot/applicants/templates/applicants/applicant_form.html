@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Kamilisha Profile{% endblock %}
+{% block content %}
+<h1>Hatua ya Kamilisha Profile</h1>
+<p class="muted">Jaza taarifa zako za msingi za muombaji wa Wizara/TCRA.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Hifadhi Profile</button>
+</form>
+{% endblock %}

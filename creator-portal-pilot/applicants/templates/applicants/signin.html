@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<h1>Sign in (NIN + Contact)</h1>
+<p class="muted">Kwa sasa OTP ya majaribio inatumwa kwa simu (inaonyeshwa kwenye ukurasa unaofuata).</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Tuma OTP</button>
+</form>
+{% endblock %}
