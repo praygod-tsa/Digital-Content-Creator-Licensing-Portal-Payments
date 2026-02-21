@@ -56,12 +56,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASE_URL = os.getenv('DATABASE_URL', '').strip().strip('"').strip("'")
+SUPABASE_URL = os.getenv('SUPABASE_URL', '').strip()
+SUPABASE_PUBLISHABLE_KEY = os.getenv('SUPABASE_PUBLISHABLE_KEY', '').strip()
+SUPABASE_DATABASE_URL = os.getenv('SUPABASE_DATABASE_URL', '').strip().strip('\"').strip("'")
+
+# Prefer DATABASE_URL (Render convention), then Supabase DB URL.
+DATABASE_URL = os.getenv('DATABASE_URL', '').strip().strip('\"').strip("'")
+if not DATABASE_URL:
+    DATABASE_URL = SUPABASE_DATABASE_URL
 
 # Render may inject empty/quoted values during setup; treat invalid URL values as missing.
 if DATABASE_URL and '://' in DATABASE_URL:
     try:
         default_db = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+        # Supabase Postgres typically requires SSL connections.
+        if 'supabase.co' in DATABASE_URL:
+            default_db.setdefault('OPTIONS', {})
+            default_db['OPTIONS'].setdefault('sslmode', 'require')
     except ValueError:
         default_db = {
             'ENGINE': 'django.db.backends.sqlite3',
