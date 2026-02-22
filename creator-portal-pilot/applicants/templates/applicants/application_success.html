@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Maelezo ya Ombi la Leseni{% endblock %}
+{% block content %}
+<h1>Maelezo ya Ombi la Leseni</h1>
+<p class="muted">
+    Ukurasa huu unaonesha hatua za ombi la leseni ndani ya mfumo wa Wizara na TCRA.
+    Unaweza kuona malipo (fake) na hatua ya mapitio kwa uwazi.
+</p>
+
+<div class="card">
+    <h3>Status Timeline</h3>
+    <p>
+        <strong>Draft</strong> →
+        <strong {% if application.status == 'SUBMITTED' %}style="color:#1b5e20;"{% endif %}>Submitted</strong> →
+        <strong {% if application.invoice_number %}style="color:#1b5e20;"{% endif %}>Invoice Generated</strong> →
+        <strong {% if application.payment_status == 'PAID' %}style="color:#1b5e20;"{% elif application.payment_status == 'UNPAID' %}style="color:#c2410c;"{% endif %}>
+            Payment ({{ application.payment_status }})
+        </strong> →
+        <strong {% if application.review_status == 'APPROVED' %}style="color:#1b5e20;"{% elif application.review_status == 'REJECTED' %}style="color:#b91c1c;"{% endif %}>
+            Review ({{ application.review_status }})
+        </strong>
+    </p>
+</div>
+
+<div class="card" style="margin-top:12px;">
+    <p><strong>Muombaji:</strong> {{ application.applicant.full_name }}</p>
+    <p><strong>NIN:</strong> {{ application.applicant.national_id_number }}</p>
+    <p><strong>Simu:</strong> {{ application.applicant.phone }}</p>
+    <p><strong>Kategoria ya Leseni:</strong> {{ application.get_licence_category_display }}</p>
+    <p><strong>Amateur:</strong> {% if application.is_amateur %}Ndiyo{% else %}Hapana{% endif %}</p>
+    <p><strong>Payment Status:</strong> {{ application.payment_status }}</p>
+    <p><strong>Review Status:</strong> {{ application.review_status }}</p>
+</div>
+
+<p style="margin-top:12px;"><a class="btn" href="{% url 'application_invoice' application.id %}">Pata Ankara ya Maombi (Fake)</a></p>
+
+{% if licence %}
+<p><a class="btn btn-secondary" href="{% url 'licence_certificate' licence.id %}">Pakua/Angalia Cheti cha Leseni</a></p>
+{% elif application.payment_status == 'PAID' and application.review_status == 'APPROVED' %}
+<p class="muted">Ombi limetimiza masharti ya utoaji leseni. Staff anaweza kufungua tena ukurasa huu kuona cheti.</p>
+{% endif %}
+
+<p><a href="{% url 'dashboard' %}">Rudi Dashboard</a></p>
+<p><a href="{% url 'application_list' %}">Angalia Orodha ya Maombi</a></p>
+{% endblock %}

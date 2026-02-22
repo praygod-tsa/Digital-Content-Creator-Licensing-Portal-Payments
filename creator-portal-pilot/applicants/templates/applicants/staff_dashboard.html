@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+<h1>Staff Dashboard</h1>
+<p class="muted">Karibu kwenye eneo la ndani la Wizara/TCRA. Tumia viungo vifuatavyo kulingana na role yako.</p>
+
+<div class="card-grid">
+    <div class="card">
+        <h3>Licence Queue</h3>
+        <p>Orodha na review ya maombi ya leseni.</p>
+        <a class="btn" href="{% url 'application_list' %}">Fungua Licence Queue</a>
+    </div>
+    <div class="card">
+        <h3>Fund Queue</h3>
+        <p>Orodha na review ya maombi ya Empowerment Fund.</p>
+        <a class="btn" href="{% url 'fund_application_list' %}">Fungua Fund Queue</a>
+    </div>
+    <div class="card">
+        <h3>Youth Report</h3>
+        <p>Tazama takwimu za vijana kwa mtazamo wa uongozi.</p>
+        <a class="btn" href="{% url 'youth_report' %}">Fungua Report</a>
+    </div>
+</div>
+{% endblock %}

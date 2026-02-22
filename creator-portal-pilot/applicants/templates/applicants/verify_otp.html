@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Verify OTP{% endblock %}
+{% block content %}
+<h1>Hakiki OTP</h1>
+<p>Namba: <strong>{{ otp_phone }}</strong> | Channel: <strong>{{ otp_channel }}</strong></p>
+
+<p style="color: darkgreen;">
+    OTP ya majaribio (kwa sasa inaonekana hapa):
+    <strong>{{ otp_for_testing }}</strong>
+</p>
+
+{% if error_message %}
+<p style="color: red;">{{ error_message }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Thibitisha OTP</button>
+</form>
+
+<p><a href="/signin/">Rudi Sign in</a></p>
+{% endblock %}

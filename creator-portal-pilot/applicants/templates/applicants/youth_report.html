@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Youth Eligibility Report{% endblock %}
+{% block content %}
+<h1>Youth Eligibility Report (Pilot)</h1>
+<p class="muted">
+    Hii ni report ya ndani ya Wizara inayoonesha hali ya waombaji vijana kwa kutumia DOB ya self-reported.
+    Takwimu hizi husaidia uongozi kuona mwelekeo wa ushiriki wa vijana kwenye huduma za mfumo.
+</p>
+
+<div class="card-grid">
+    <div class="card">
+        <h3>Applicants with DOB</h3>
+        <p><strong>{{ applicants_with_dob }}</strong></p>
+    </div>
+    <div class="card">
+        <h3>Youth Applicants</h3>
+        <p><strong>{{ youth_applicants }}</strong> ({{ youth_percentage }}%)</p>
+    </div>
+    <div class="card">
+        <h3>Fund Apps - Youth</h3>
+        <p><strong>{{ youth_fund_count }}</strong></p>
+    </div>
+    <div class="card">
+        <h3>Fund Apps - Non-Youth</h3>
+        <p><strong>{{ non_youth_fund_count }}</strong></p>
+    </div>
+</div>
+
+<div class="card" style="margin-top:14px;">
+    <h3>Youth Fund Applications by Program</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Program</th>
+                <th>Total (Youth)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in youth_program_breakdown %}
+            <tr>
+                <td>{{ program_labels[row.fund_program] }}</td>
+                <td>{{ row.total }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">Hakuna youth fund applications bado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Digital Content Creator Program{% endblock %}</title>
+    <style>
+        :root {
+            --tz-green: #1b5e20;
+            --tz-blue: #0d47a1;
+            --tz-gold: #f9a825;
+            --bg: #f7faf7;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --card: #ffffff;
+            --border: #d1d5db;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--tz-green), var(--tz-blue));
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .logo-box {
+            border: 1px dashed rgba(255, 255, 255, 0.8);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .top-nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 24px auto;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--tz-blue);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background: var(--tz-green);
+        }
+
+        .card-grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--tz-gold);
+            border-radius: 8px;
+            padding: 14px;
+            background: #fff;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #eef4ee;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo-box">[Nembo Rasmi ya Serikali ya Tanzania]</div>
+    <div>
+        <strong>Ministry of Information, Culture, Arts and Sports</strong><br />
+        <span class="muted" style="color:#e5e7eb;">Digital Content Creator Program Portal</span>
+    </div>
+    <div class="logo-box">[Digital Content Creator Program Logo]</div>
+</header>
+
+<header class="top-nav" style="background:#0b3b60; padding-top:8px; padding-bottom:8px;">
+    <div>
+        <a href="/">Home</a>
+        <a href="/signin/">Sign in</a>
+        <a href="/dashboard/">Dashboard</a>
+        <a href="/applications/">Applications</a>
+        <a href="/fund/applications/">Fund Apps</a>
+        <a href="/reports/youth/">Youth Report</a>
+        <a href="/applicants/">Applicants</a>
+        <a href="/staff-login/">Staff Login</a>
+    </div>
+</header>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

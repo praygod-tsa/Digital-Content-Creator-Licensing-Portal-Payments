@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Review Fund Application{% endblock %}
+{% block content %}
+<h1>Review ya Empowerment Fund Application</h1>
+
+<p><strong>Muombaji:</strong> {{ fund_application.applicant.full_name }}</p>
+<p><strong>NIN:</strong> {{ fund_application.applicant.national_id_number }}</p>
+<p><strong>Program:</strong> {{ fund_application.get_fund_program_display }}</p>
+<p><strong>Kiasi:</strong> {{ fund_application.requested_amount_tzs }} TZS</p>
+<p><strong>Muhtasari:</strong></p>
+<pre>{{ fund_application.summary_of_idea }}</pre>
+
+<p><strong>Umri (kama DOB ipo):</strong> {{ applicant_age|default:'-' }}</p>
+<p><strong>Kijana:</strong> {% if is_youth_now %}Ndiyo{% else %}Hapana{% endif %}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Hifadhi Review ya Fund</button>
+</form>
+
+<p><a href="/fund/applications/">Rudi Orodha ya Fund Applications</a></p>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashibodi ya Mtumiaji</h1>
+<p class="muted">
+    Hii ni dashibodi ya mfumo wa Wizara kwa ajili ya kusajili na kufuatilia maombi ya leseni na Mfuko wa Uwezeshaji
+    kwa waundaji wa maudhui. TCRA inaendesha ukaguzi wa leseni ndani ya mfumo huu wa Wizara.
+</p>
+
+{% if applicant %}
+<div class="card">
+    <h3>Profile ya Mtumiaji</h3>
+    <p><strong>Jina:</strong> {{ applicant.full_name }}</p>
+    <p><strong>NIN:</strong> {{ applicant.national_id_number }}</p>
+    <p><strong>Simu:</strong> {{ applicant.phone }}</p>
+    <p><strong>Email:</strong> {{ applicant.email|default:'-' }}</p>
+    <p><strong>Tarehe ya Kuzaliwa:</strong> {{ applicant.date_of_birth|default:'-' }}</p>
+    <p><strong>Umri:</strong> {{ applicant.age_in_years|default:'-' }}</p>
+    <p><strong>Kijana:</strong> {% if applicant.is_youth %}Ndiyo{% else %}Hapana{% endif %}</p>
+    <p><strong>Mkoa:</strong> {{ applicant.region }}</p>
+</div>
+{% else %}
+<div class="card">
+    <h3>Profile haijakamilika</h3>
+    <p>Bado hujakamilisha profile ya muombaji.</p>
+    <a class="btn" href="{% url 'register_applicant' %}">Kamilisha Profile</a>
+</div>
+{% endif %}
+
+<div class="card-grid" style="margin-top:14px;">
+    <div class="card">
+        <h3>Licence Applications</h3>
+        <p>Anzisha ombi jipya au angalia maombi yaliyopo.</p>
+        <p>
+            <a class="btn" href="{% url 'apply_licence' %}">Anza Ombi la Leseni</a>
+            <a class="btn btn-secondary" href="{% url 'application_list' %}">Orodha ya Maombi</a>
+        </p>
+    </div>
+    <div class="card">
+        <h3>Empowerment Fund</h3>
+        <p>Omba ufadhili au fuatilia hali ya maombi ya fund.</p>
+        <p>
+            <a class="btn" href="{% url 'fund_apply' %}">Anza Ombi la Fund</a>
+            <a class="btn btn-secondary" href="{% url 'fund_application_list' %}">Orodha ya Fund Apps</a>
+        </p>
+    </div>
+    <div class="card">
+        <h3>Mentorship / Programs</h3>
+        <p>Mafunzo na programu za maendeleo (coming soon).</p>
+        <a class="btn btn-secondary" href="{% url 'mentorship_stub' %}">Open Mentorship section</a>
+    </div>
+</div>
+
+{% if my_licence_applications %}
+<div class="card" style="margin-top:14px;">
+    <h3>Maombi Yako ya Leseni (5 ya mwisho)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Kategoria</th>
+                <th>Amateur</th>
+                <th>Payment Status</th>
+                <th>Review Status</th>
+                <th>Tarehe</th>
+                <th>Hatua</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in my_licence_applications %}
+            <tr>
+                <td>{{ app.get_licence_category_display }}</td>
+                <td>{% if app.is_amateur %}Ndiyo{% else %}Hapana{% endif %}</td>
+                <td>{{ app.payment_status }}</td>
+                <td>{{ app.review_status }}</td>
+                <td>{{ app.created_at }}</td>
+                <td>
+                    <a href="{% url 'application_success' app.id %}">Detail</a> |
+                    <a href="{% url 'application_invoice' app.id %}">Ankara</a>
+                    {% if app.licence %}| <a href="{% url 'licence_certificate' app.licence.id %}">Cheti</a>{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if my_fund_applications %}
+<div class="card" style="margin-top:14px;">
+    <h3>Maombi Yako ya Fund (5 ya mwisho)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Program</th>
+                <th>Kiasi (TZS)</th>
+                <th>Status</th>
+                <th>Review</th>
+                <th>Kijana</th>
+                <th>Tarehe</th>
+                <th>Hatua</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fund in my_fund_applications %}
+            <tr>
+                <td>{{ fund.get_fund_program_display }}</td>
+                <td>{{ fund.requested_amount_tzs }}</td>
+                <td>{{ fund.status }}</td>
+                <td>{{ fund.review_status }}</td>
+                <td>{% if fund.is_youth_at_application %}Ndiyo{% else %}Hapana{% endif %}</td>
+                <td>{{ fund.created_at }}</td>
+                <td><a href="{% url 'fund_success' fund.id %}">Detail</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

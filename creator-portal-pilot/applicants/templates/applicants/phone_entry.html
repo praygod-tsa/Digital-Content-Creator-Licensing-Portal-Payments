@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hatua ya 1 - Namba ya Simu</title>
+</head>
+<body>
+    <h1>Hatua ya 1: Weka Namba ya Simu</h1>
+    <p>Tutaonyesha OTP ya majaribio kwenye ukurasa unaofuata.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Tuma OTP ya majaribio</button>
+    </form>
+
+    <p><a href="/applicants/">Angalia Orodha ya Waombaji</a></p>
+</body>
+</html>

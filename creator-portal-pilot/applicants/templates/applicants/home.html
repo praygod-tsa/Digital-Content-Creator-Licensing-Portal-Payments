@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Home - Digital Content Creator Program{% endblock %}
+{% block content %}
+<h1>Karibu kwenye National Digital Content Creator Program Portal</h1>
+<p class="muted">
+    Huu ni mfumo wa Wizara ya Habari, Utamaduni, Sanaa na Michezo wa kutoa huduma kwa waundaji wa maudhui,
+    waombaji wa leseni, na waombaji wa Mfuko wa Uwezeshaji. TCRA inasimamia mchakato wa leseni ndani ya mfumo huu.
+</p>
+<p class="muted">
+    Kwa demo ya uongozi, unaweza kufuatilia safari kamili: usajili wa utambulisho, maombi ya leseni,
+    ankara/malipo ya mfano, ukaguzi wa ndani, na takwimu za vijana.
+</p>
+
+<div class="card-grid">
+    <div class="card">
+        <h3>Licence Services</h3>
+        <p>Jisajili, omba leseni, fuatilia invoice na hali ya maombi.</p>
+        <a class="btn" href="{% url 'start_signin' %}">Anza Sign in</a>
+    </div>
+    <div class="card">
+        <h3>Empowerment Fund</h3>
+        <p>Omba ufadhili wa ukuzaji wa digital content kwa programu husika.</p>
+        <a class="btn btn-secondary" href="{% url 'fund_apply' %}">Anza Ombi la Fund</a>
+    </div>
+    <div class="card">
+        <h3>Mentorship / Programs</h3>
+        <p>Mafunzo, mentoring na programu za maendeleo (coming soon).</p>
+        <a class="btn btn-secondary" href="{% url 'mentorship_stub' %}">Angalia maelezo</a>
+    </div>
+</div>
+{% endblock %}

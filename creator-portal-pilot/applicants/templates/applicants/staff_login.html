@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Staff Login{% endblock %}
+{% block content %}
+<h1>Staff Login (Ministry/TCRA)</h1>
+<p class="muted">Ukurasa huu ni kwa watumishi wa ndani wa Wizara/TCRA tu. Waombaji wa kawaida waendelee kutumia NIN + OTP.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Ingia kama Staff</button>
+</form>
+
+<p><a href="{% url 'start_signin' %}">Rudi kwenye sign-in ya waombaji</a></p>
+{% endblock %}
